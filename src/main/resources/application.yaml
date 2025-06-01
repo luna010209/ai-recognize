@@ -17,3 +17,15 @@ spring:
     generate-ddl: true
     defer-datasource-initialization: true
 
+  mail:
+    host: smtp.gmail.com
+    port: <port>
+    username: <email>
+    password: <pw>
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
