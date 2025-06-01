@@ -17,4 +17,8 @@ public class VerifyController {
     public VerifyDTO sendMail(@RequestBody VerifyDTO request){
         return verifyService.sendMail(request.getMailPhone());
     }
+    @PostMapping("email")
+    public VerifyDTO verifyEmail(@RequestBody VerifyDTO request){
+        return verifyService.verifyEmail(request);
+    }
 }

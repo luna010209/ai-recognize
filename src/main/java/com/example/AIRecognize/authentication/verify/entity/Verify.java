@@ -23,9 +23,11 @@ public class Verify {
 
     private Integer verifyCode;
     private Date expiration;
+    private boolean success;
     public Verify(String mailPhone, Integer verifyCode){
         this.mailPhone = mailPhone;
         this.verifyCode = verifyCode;
         this.expiration= Date.from(Instant.now().plusSeconds(60*30));
+        this.success=false;
     }
 }
