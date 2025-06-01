@@ -12,10 +12,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth->{
+                    auth.requestMatchers("/verify/**").permitAll();
                     auth.anyRequest().authenticated();
                 });
 
         return http.build();
-
     }
 }

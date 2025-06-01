@@ -11,14 +11,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class VerifyDTO {
-    private Long id;
     private String mailPhone;
     private Integer verifyCode;
     private Date expiration;
-    private boolean success;
     public static VerifyDTO dto(Verify verify){
         VerifyDTO verifyDTO = VerifyDTO.builder()
-                .id(verify.getId())
                 .mailPhone(verify.getMailPhone())
                 .verifyCode(verify.getVerifyCode())
                 .expiration(verify.getExpiration())
