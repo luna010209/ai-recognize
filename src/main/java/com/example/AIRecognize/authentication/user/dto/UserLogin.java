@@ -1,9 +1,7 @@
 package com.example.AIRecognize.authentication.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.AIRecognize.authentication.user.entity.UserEntity;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +15,20 @@ import java.util.stream.Stream;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserLogin implements UserDetails {
     private String username;
     private String password;
     private String authorities;
+
+    public static UserLogin dto(UserEntity entity){
+        UserLogin userLogin = UserLogin.builder()
+                .username(entity.getUsername())
+                .password(entity.getPassword())
+                .authorities(entity.getAuthorities())
+                .build();
+        return userLogin;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

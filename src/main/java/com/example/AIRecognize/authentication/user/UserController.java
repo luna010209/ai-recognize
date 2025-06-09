@@ -3,6 +3,7 @@ package com.example.AIRecognize.authentication.user;
 import com.example.AIRecognize.authentication.user.dto.UserDTO;
 import com.example.AIRecognize.authentication.user.dto.UserRequest;
 import com.example.AIRecognize.authentication.user.service.UserService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,4 +19,6 @@ public class UserController {
     public UserDTO registerUser(@RequestBody UserRequest request){
         return userService.registerUser(request);
     }
+
+
 }

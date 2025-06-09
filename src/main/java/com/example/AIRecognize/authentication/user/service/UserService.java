@@ -1,6 +1,7 @@
 package com.example.AIRecognize.authentication.user.service;
 
 import com.example.AIRecognize.authentication.user.dto.UserDTO;
+import com.example.AIRecognize.authentication.user.dto.UserLogin;
 import com.example.AIRecognize.authentication.user.dto.UserRequest;
 import com.example.AIRecognize.authentication.user.entity.UserEntity;
 import com.example.AIRecognize.authentication.user.repo.UserRepo;
@@ -44,6 +45,9 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        UserEntity user = userRepo.findByUsername(username).orElseThrow(
+                ()-> new CustomException(HttpStatus.NOT_FOUND, "No exist username")
+        );
+        return UserLogin.dto(user);
     }
 }
