@@ -29,3 +29,5 @@ spring:
           starttls:
             enable: true
 
+jwt:
+  secret: cxtbTLbpx9N%2FaG8%2BHZPEINXBbq6cMJ%2B4Xkhr4fVQIwzPX8YDEX%2F0O1oEfDecBvKbRRnUTcX9bvKf5uLbPj3m%2FA%3D%3D
