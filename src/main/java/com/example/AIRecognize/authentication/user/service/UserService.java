@@ -1,5 +1,6 @@
 package com.example.AIRecognize.authentication.user.service;
 
+import com.example.AIRecognize.authentication.component.UserComponent;
 import com.example.AIRecognize.authentication.user.dto.UserDTO;
 import com.example.AIRecognize.authentication.user.dto.UserLogin;
 import com.example.AIRecognize.authentication.user.dto.UserRequest;
@@ -22,9 +23,13 @@ public class UserService implements UserDetailsService {
     private final UserRepo userRepo;
     private final VerifyRepo verifyRepo;
     private final PasswordEncoder encoder;
+    private final UserComponent userComponent;
+
     public UserDTO registerUser(UserRequest request){
         if (userRepo.existsByUsername(request.getUsername()))
-            throw new CustomException(HttpStatus.BAD_REQUEST, "Username does already exist!");
+            throw new CustomException(HttpStatus.BAD_REQUEST, "Username already exists!");
+        else if (userRepo.existsByEmail(request.getEmail()))
+            throw new CustomException(HttpStatus.BAD_REQUEST, "Email already exists!!");
         else if (!request.getPassword().equals(request.getConfirmPw()))
             throw new CustomException(HttpStatus.CONFLICT, "Passwords do not match!");
         Verify verify = verifyRepo.findById(request.getEmail()).orElseThrow(
@@ -39,7 +44,10 @@ public class UserService implements UserDetailsService {
                 .email(request.getEmail())
                 .phone(request.getPhone())
                 .avatar(request.getAvatar())
+                .authorities("ROLE_USER")
                 .build();
+        entity = userRepo.save(entity);
+
         return UserDTO.dto(userRepo.save(entity));
     }
 
@@ -49,5 +57,9 @@ public class UserService implements UserDetailsService {
                 ()-> new CustomException(HttpStatus.NOT_FOUND, "No exist username")
         );
         return UserLogin.dto(user);
+    }
+
+    public UserDTO loginUser(){
+        return UserDTO.dto(userComponent.userLogin());
     }
 }

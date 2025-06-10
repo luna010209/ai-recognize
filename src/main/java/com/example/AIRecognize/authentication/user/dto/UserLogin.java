@@ -19,20 +19,20 @@ import java.util.stream.Stream;
 public class UserLogin implements UserDetails {
     private String username;
     private String password;
-    private String authorities;
+    private String stringAuthorities;
 
     public static UserLogin dto(UserEntity entity){
         UserLogin userLogin = UserLogin.builder()
                 .username(entity.getUsername())
                 .password(entity.getPassword())
-                .authorities(entity.getAuthorities())
+                .stringAuthorities(entity.getAuthorities())
                 .build();
         return userLogin;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String[] listAuthorities = authorities.split(",");
+        String[] listAuthorities = stringAuthorities.split(",");
         return Arrays.stream(listAuthorities).map(SimpleGrantedAuthority::new).toList();
     }
 }
